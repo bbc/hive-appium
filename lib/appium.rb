@@ -31,7 +31,7 @@ class Appium
 
   def start_appium 
    raise "No symlink or file found at #{@appium_path}. Refer README." if !path_exists? @appium_path
-   @command = "#{@appium_path} --udid #{@serial} --port #{@port} --bootstrap-port #{@bp} --chromedriver-port #{@cp}"
+   @command = "#{@appium_path} --udid #{@serial} --port #{@port} --bootstrap-port #{@bp} --chromedriver-port #{@cp} #{@options.params}"
    add_log_dir 
    execute @command
   end

@@ -50,6 +50,11 @@ class CLIParser
           options.chromedriver_port = cport
       end
 
+      opts.on("--params params",
+              "Extra paramaters to add to appium command. Ex '--orientation LANDSCAPE'") do |params|
+          options.params = params
+      end
+
       opts.on("-v", "--version version",
                 "run specific Appium Version") do |version|
               options.version = version
