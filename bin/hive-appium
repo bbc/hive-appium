@@ -61,7 +61,7 @@ class CLIParser
       end
 
       opts.on("-l", "--log log_directory",
-              "Log directory location (set to current directory which by default if logging is not set)") do |log_dir|
+              "Log directory location (set to current directory by default when logging is not set)") do |log_dir|
           options.log_dir = log_dir
       end
 
