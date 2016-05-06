@@ -51,7 +51,7 @@ class CLIParser
       end
 
       opts.on("--params params",
-              "Extra paramaters to add to appium command. Ex '--orientation LANDSCAPE'") do |params|
+              "Extra paramaters to add to appium execution command. Ex '--orientation LANDSCAPE'") do |params|
           options.params = params
       end
 
