@@ -10,7 +10,7 @@ class Appium
    @port = options.port || ENV['APPIUM_PORT'] || '4723'
    @cp = options.chromedriver_port || ENV['CHROMEDRIVER_PORT'] || '9515'
    @bp = options.bootstrap_port || ENV['BOOTSTRAP_PORT'] || '4724'
-   @appium_path = @options.appium_path || appium_path 
+   @appium_path = appium_path || @options.appium_path
   end
 
  
@@ -21,8 +21,12 @@ class Appium
    return path
   end
 
-  def path_exists? path
-   File.exist?(path) || File.symlink?(path)
+  def path_exists? appium_path 
+   paths = `echo $PATH`
+   paths.split(':').each do |path|
+    return true if File.exist?("#{path}/"+appium_path) || File.symlink?("#{path}/"+appium_path)  
+   end
+   return false
   end
 
   def start_default_appium
@@ -30,7 +34,7 @@ class Appium
   end
 
   def start_appium 
-   raise "No symlink or file found at #{@appium_path}. Refer README." if !path_exists? @appium_path
+   raise "No symlink or file found at default paths. Refer README." if !path_exists? @appium_path
    @command = "#{@appium_path} --udid #{@serial} --port #{@port} --bootstrap-port #{@bp} --chromedriver-port #{@cp} #{@options.params}"
    add_log_dir 
    execute @command
