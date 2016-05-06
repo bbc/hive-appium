@@ -15,7 +15,7 @@ class Appium
 
  
   def appium_path
-   path = "/usr/bin/appium" 
+   path = "appium" 
    path = @options.android ? path + "-android" : path + "-ios"
    path = "#{path}@#{@options.version}" if @options.version
    return path
