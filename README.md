@@ -3,7 +3,7 @@ Appium helper scripts for the hive
 
 ## Pre-requisite
   
-Symlink executables for Android and iOS to any of your default path
+Symlink executables for Android and iOS to  default path
 
 Set default appium 
 
@@ -22,4 +22,5 @@ Execution command:
 
 Note:
 1. There is option for specifying appium executable location in --help option but it is not used
+2. For IOS, we need to install ios_webkit_debug_proxy. Refer https://github.com/google/ios-webkit-debug-proxy for installation
 
