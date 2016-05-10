@@ -21,6 +21,7 @@ Execution command:
     RUBYLIB=lib ruby ./bin/hive-appium --android --udid 'xxxx' -p 1234 --bp 1236 --cp 1238 --params '--orientation LANDSCAPE'
 
 Note:
+
 1. There is option for specifying appium executable location in --help option but it is not used
 2. For IOS, we need to install ios_webkit_debug_proxy. Refer https://github.com/google/ios-webkit-debug-proxy for installation
 
