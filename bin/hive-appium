@@ -21,13 +21,11 @@ class CLIParser
       opts.on("-a", "--android",
               "Start appium for Android") do |android|
         options.android = true
-        options.ios = false
       end      
 
       opts.on("-i","--ios",
               "Start appium for iOS") do |ios|
         options.ios = true
-        options.android = false
       end
 
       opts.on("--udid udid",
@@ -79,6 +77,10 @@ class CLIParser
 end
 
 options = CLIParser.parse(ARGV)
+
+if (!options.android and !options.ios) or (options.android and options.ios)
+  raise "Specify either android or ios as option to start appium server"
+end
 
 if options.android
   android = HiveAppium::Android.new options

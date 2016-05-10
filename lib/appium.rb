@@ -4,7 +4,7 @@ class Appium
                 :log_dir, :appium_path,
                 :command
 
-  def initialize options
+  def initialize(options)
    @options = options
    @log_dir = options.log_dir || ENV['HIVE_RESULTS'] || "."   
    @port = options.port || ENV['APPIUM_PORT'] || '4723'
@@ -21,10 +21,10 @@ class Appium
    return path
   end
 
-  def path_exists? appium_path 
+  def path_exists? path 
    paths = `echo $PATH`
-   paths.split(':').each do |path|
-    return true if File.exist?("#{path}/"+appium_path) || File.symlink?("#{path}/"+appium_path)  
+   paths.split(':').each do |p|
+    return true if File.exist?("#{p}/"+path) || File.symlink?("#{p}/"+ path)  
    end
    return false
   end
