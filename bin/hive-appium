@@ -1,0 +1,97 @@
+#! /usr/bin/env ruby
+
+require 'optparse'
+require 'ostruct'
+require 'hive_appium/android'
+require 'hive_appium/ios'
+
+class CLIParser
+
+  def self.parse(args)
+    options = OpenStruct.new
+
+    opt_parser = OptionParser.new do |opts|
+      opts.banner = "Usage: hive-appium [options]"
+      
+      opts.on("-s", "--start location ",
+              "Appium installation directory location i.e. /path/to/node_modules") do |location|
+        options.appium_path = location
+      end
+
+      opts.on("-a", "--android",
+              "Start appium for Android") do |android|
+        options.android = true
+      end      
+
+      opts.on("-i","--ios",
+              "Start appium for iOS") do |ios|
+        options.ios = true
+      end
+
+      opts.on("--udid udid",
+              "UDID of device") do |udid|
+        options.udid = udid
+      end
+
+      opts.on("-p", "--port port",
+              "Appium port to listen on") do |port|
+          options.port = port
+      end
+      
+      opts.on("--bp port",
+              "Bootstrap port to listen on") do |bport|
+          options.bootstrap_port  = bport
+      end
+
+      opts.on("--cp port",
+              "Chromedriver port to listen on") do |cport|
+          options.chromedriver_port = cport
+      end
+
+      opts.on("--params params",
+              "Extra paramaters to add to appium execution command. Ex '--orientation LANDSCAPE'") do |params|
+          options.params = params
+      end
+
+      opts.on("-v", "--version version",
+                "run specific Appium Version") do |version|
+              options.version = version
+      end
+
+      opts.on("-l", "--log log_directory",
+              "Log directory location (set to current directory by default when logging is not set)") do |log_dir|
+          options.log_dir = log_dir
+      end
+
+      opts.on_tail("-h", "--help", "Display help") do
+        puts opts
+        exit
+      end    
+    end
+     
+    opt_parser.parse!(args)
+    options
+
+  end
+
+end
+
+options = CLIParser.parse(ARGV)
+
+if (!options.android and !options.ios) or (options.android and options.ios)
+  raise "Specify either android or ios as option to start appium server"
+end
+
+if options.android
+  android = HiveAppium::Android.new options
+  android.start
+end
+
+if options.ios
+  ios = HiveAppium::Ios.new options
+  ios.start
+end
+
+
+
+
