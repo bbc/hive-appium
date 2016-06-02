@@ -48,6 +48,11 @@ class CLIParser
           options.chromedriver_port = cport
       end
 
+      opts.on("--wp port",
+              "Communicate with ios device on port") do |wport|
+          options.ios_webkig_debug_proxy_port = wport
+      end
+
       opts.on("--params params",
               "Extra paramaters to add to appium execution command. Ex '--orientation LANDSCAPE'") do |params|
           options.params = params
