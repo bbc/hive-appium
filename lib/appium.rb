@@ -43,7 +43,6 @@ class Appium
   end
 
   def execute command
-   p command
    system(command)
   end
 end 
