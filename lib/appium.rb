@@ -1,6 +1,6 @@
 class Appium
 
-  attr_accessor :serial, :port, :cp, :bp,
+  attr_accessor :serial, :port,
                 :log_dir, :appium_path,
                 :command
 
@@ -8,8 +8,6 @@ class Appium
    @options = options
    @log_dir = options.log_dir || ENV['HIVE_RESULTS'] || "."   
    @port = options.port || ENV['APPIUM_PORT'] || '4723'
-   @cp = options.chromedriver_port || ENV['CHROMEDRIVER_PORT'] || '9515'
-   @bp = options.bootstrap_port || ENV['BOOTSTRAP_PORT'] || '4724'
    @appium_path = appium_path || @options.appium_path
   end
 
@@ -35,7 +33,7 @@ class Appium
 
   def start_appium 
    raise "No symlink or file found at default paths. Refer README." if !path_exists? @appium_path
-   @command = "#{@appium_path} --udid #{@serial} --port #{@port} --bootstrap-port #{@bp} --chromedriver-port #{@cp} #{@options.params}"
+   @command = "#{@appium_path} --udid #{@serial} --port #{@port} #{@options.params}"
    add_log_dir 
    execute @command
   end
@@ -45,6 +43,7 @@ class Appium
   end
 
   def execute command
+   p command
    system(command)
   end
 end 
