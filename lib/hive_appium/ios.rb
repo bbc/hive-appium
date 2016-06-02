@@ -12,8 +12,10 @@ module HiveAppium
     end
    
     def start
+        require 'pry'
+        binding.pry
      @options.params = "" if !@options.params
-     @options.params << " --tmp /tmp/ios/#{rand(1000000)}"
+     @options.params << " --tmp /tmp/ios/#{rand(1000000)}" if !@options.params.include?("--tmp")
      self.start_appium
      start_webkit_proxy
     end
